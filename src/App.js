@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import { getCurrentWeatherData, getForeCastData,getCurrentWeatherDatafromZipCode } from "./actions";
+import {
+  getCurrentWeatherData,
+  getForeCastData,
+  getCurrentWeatherDatafromZipCode,
+} from "./actions";
 import "./App.css";
 import Button from "./components/Buttons/Button";
 import DailyForecast from "./components/Forecasts/DailyForecast";
@@ -12,6 +16,7 @@ import { toCelcius } from "./utils/tempConverter";
 const App = ({
   getWeatherData,
   weatherData,
+  getWeatherDataByZip,
   isLoading,
   getWeaklyForecast,
   ...props
@@ -19,17 +24,21 @@ const App = ({
   const {
     name,
     sys,
-    main = { temp: 0 ,pressure: "",humidity: "",temp_max: "",temp_min: ""},
+    main = { temp: 0, pressure: "", humidity: "", temp_max: "", temp_min: "" },
     weather = [{ description: "", icon: "" }],
     clouds,
   } = weatherData;
   const [city, setcity] = useState("");
-
+  const [searchBy, setsearchBy] = useState("city Name");
   const searchInputHandler = (e) => {
     e.preventDefault();
     setcity(e.target.value);
     // getWeaklyForecast(e.target.value);
-    getWeatherData(e.target.value);
+    if (searchBy === "city Name") {
+      getWeatherData(e.target.value);
+    } else if (searchBy === "city ID") {
+      getWeatherDataByZip(city);
+    }
   };
 
   console.log("weather data  ", weatherData);
@@ -38,10 +47,20 @@ const App = ({
     getWeaklyForecast(city);
     // getWeatherData(city);
   };
+  const selectHandler = (e) => {
+    e.preventDefault();
+    setsearchBy(e.target.value);
+  };
+
   return (
     <div className="App">
       <Navbar />
-      <SearchInput onChange={searchInputHandler} fetchData={fetchData} />
+      <SearchInput
+        onChange={searchInputHandler}
+        fetchData={fetchData}
+        searchBy={searchBy}
+        onselectChange={selectHandler}
+      />
       <div className="weather-statistics">
         <div className="forecast card">
           <DailyForecast
@@ -81,7 +100,7 @@ const App = ({
           <div className="temp-converted">
             <p>Temperature Converter</p>
 
-            <p className='temp-meter'>
+            <p className="temp-meter">
               <span> Farhenhite: {main.temp}</span>
               <span> Celcius: {toCelcius(main.temp)}</span>
             </p>
@@ -104,6 +123,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   getWeatherData: (city) => dispatch(getCurrentWeatherData(city)),
   getWeaklyForecast: (city) => dispatch(getForeCastData(city)),
+  getWeatherDataByZip: (zip) => dispatch(getCurrentWeatherDatafromZipCode(zip)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function SearchInput({ onChange, fetchData }) {
-  const [searchBy, setsearchBy] = useState("city name");
+export default function SearchInput({ onChange, searchBy,fetchData,onselectChange }) {
+//   const [searchBy, setsearchBy] = useState("city name");
   return (
     <div className="input-group bg-white rounded-pill pe-1 m-2 mt-3 m-auto w-45">
       <div className="input-group-prepend">
@@ -28,14 +28,14 @@ export default function SearchInput({ onChange, fetchData }) {
         type="search"
         aria-describedby="button-addon2"
         className="form-control border-0 bg-white"
-        placeholder={searchBy}
+        placeholder={`search by  ${searchBy}`}
         onChange={onChange}
       />
-      <select class="form-control" id="exampleFormControlSelect1">
-        <option value="city Name" selected={searchBy === "city name"}>
+      <select class="form-control" id="exampleFormControlSelect1"  onChange={onselectChange} value={searchBy}>
+        <option value="city Name" name='cityname' selected={searchBy === "city name"} >
           By CityName
         </option>
-        <option value="city ID" selected={searchBy === "city ID"}>
+        <option value="city ID" name='cityid' selected={searchBy === "city ID"} >
           By CIty ID
         </option>
       </select>
