@@ -11,6 +11,7 @@ import DailyForecast from "./components/Forecasts/DailyForecast";
 import WeeklyForcast from "./components/Forecasts/WeeklyForcast";
 import Navbar from "./components/Navbar/Navbar";
 import SearchInput from "./components/SearchInput/SearchInput";
+import WeatherStatistics from "./components/Statistics/WeatherStatistics";
 import { toCelcius } from "./utils/tempConverter";
 
 const App = ({
@@ -101,33 +102,7 @@ const App = ({
           />
           <WeeklyForcast city={name} />
         </div>
-        <div className="statistics card">
-          <div className="weatherMap">
-            <div className="buttonContainer">
-              <Button
-                className="btn btn-outline-success text-white"
-                text="Clouds"
-              />
-              <Button
-                className="btn btn-outline-warning text-white"
-                text="Precipitation"
-              />
-              <Button
-                className="btn btn-outline-primary text-white"
-                text="Temperature"
-              />
-            </div>
-            <div className="map">Map</div>
-          </div>
-          <div className="temp-converted">
-            <p>Temperature Converter</p>
-
-            <p className="temp-meter">
-              <span> Farhenhite: {main.temp}&deg; F</span>
-              <span> Celcius:<br></br> {toCelcius(main.temp)}&deg; C</span>
-            </p>
-          </div>
-        </div>
+        <WeatherStatistics temp={main.temp}/>
       </div>
     </div>
   );
