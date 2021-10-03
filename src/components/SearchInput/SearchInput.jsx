@@ -8,7 +8,7 @@ export default function SearchInput({
 }) {
   //   const [searchBy, setsearchBy] = useState("city name");
   return (
-    <div className="input-group bg-white rounded-pill pe-1 m-2 mt-3 mx-auto w-45">
+    <div className="input-group bg-white rounded-pill pe-1 search-input">
       <div className="input-group-prepend">
         <button
           id="button-addon2"

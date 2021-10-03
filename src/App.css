@@ -156,6 +156,11 @@ p.temp-meter span {
   margin: auto;
 }
 
+.search-input {
+  width: 45%;
+  margin: 10px auto;
+}
+
 @media only screen and (max-width: 768px) {
   .weather-statistics {
     flex-direction: column;
@@ -169,7 +174,11 @@ p.temp-meter span {
     height: auto;
   }
   .weekly-forecast {
-    height: 420px;
+    height: 250px;
+}
+  .search-input {
+    width: auto;
+    margin: 15px;
   }
   /* button#button-addon2 {
     display: none;
