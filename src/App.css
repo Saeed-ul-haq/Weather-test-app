@@ -147,11 +147,9 @@ p.temp-meter span {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 68%;
-  background: "#fff";
-  color: black;
+  width: 150px;
   flex-wrap: nowrap;
-  box-shadow: 0 3px 6px rgb(194 191 191), 0 -3px 6px rgb(194 191 191);
+  box-shadow: 0 3px 6px #fff, 0 -3px 6px #fff;
   margin: auto;
 }
 .weather-card > p {
@@ -180,7 +178,7 @@ p.temp-meter span {
   }
   .weekly-forecast {
     height: 250px;
-  }
+}
   .search-input {
     width: auto;
     margin: 15px;
