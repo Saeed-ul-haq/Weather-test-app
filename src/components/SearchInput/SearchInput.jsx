@@ -1,9 +1,14 @@
 import React from "react";
 
-export default function SearchInput({ onChange, searchBy,fetchData,onselectChange }) {
-//   const [searchBy, setsearchBy] = useState("city name");
+export default function SearchInput({
+  onChange,
+  searchBy,
+  fetchData,
+  onselectChange,
+}) {
+  //   const [searchBy, setsearchBy] = useState("city name");
   return (
-    <div className="input-group bg-white rounded-pill pe-1 m-2 mt-3 m-auto w-45">
+    <div className="input-group bg-white rounded-pill pe-1 m-2 mt-3 mx-auto w-45">
       <div className="input-group-prepend">
         <button
           id="button-addon2"
@@ -24,18 +29,51 @@ export default function SearchInput({ onChange, searchBy,fetchData,onselectChang
           </svg>
         </button>
       </div>
-      <input
-        type="search"
-        aria-describedby="button-addon2"
-        className="form-control border-0 bg-white"
-        placeholder={`search by  ${searchBy}`}
-        onChange={onChange}
-      />
-      <select class="form-control" id="exampleFormControlSelect1"  onChange={onselectChange} value={searchBy}>
-        <option value="city Name" name='cityname' selected={searchBy === "city name"} >
+      {searchBy === "city ID" ? (
+        <>
+          <input
+            type="text"
+            aria-describedby="button-addon2"
+            name="cityCode"
+            className="form-control border-0 bg-white"
+            placeholder={`zip code`}
+            onChange={onChange}
+          />
+          <input
+            type="search"
+            aria-describedby="button-addon2"
+            className={`form-control border-0 bg-white ${
+              searchBy === `city Name` && "d-none"
+            }`}
+            name="countryCode"
+            placeholder={`Enter country ID`}
+            name="country code"
+            onChange={onChange}
+          />
+        </>
+      ) : (
+        <input
+          type="search"
+          aria-describedby="button-addon2"
+          className="form-control border-0 bg-white"
+          placeholder={`search by  ${searchBy}`}
+          onChange={onChange}
+        />
+      )}
+      <select
+        class="form-control"
+        id="exampleFormControlSelect1"
+        onChange={onselectChange}
+        value={searchBy}
+      >
+        <option
+          value="city Name"
+          name="cityname"
+          selected={searchBy === "city name"}
+        >
           By CityName
         </option>
-        <option value="city ID" name='cityid' selected={searchBy === "city ID"} >
+        <option value="city ID" name="cityid" selected={searchBy === "city ID"}>
           By CIty ID
         </option>
       </select>

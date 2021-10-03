@@ -19,7 +19,7 @@ nav {
   box-shadow: 0 3px 6px #bfb4b41a, 0 -3px 6px #bfb4b41a;
   border: 1px solid #495057;
   width: 50%;
-  margin: auto;
+  margin: 5px auto;
 }
 
 .form-control:focus {
@@ -126,7 +126,7 @@ nav {
   margin: 15px 10px;
 }
 select#exampleFormControlSelect1 {
-  flex: 0.4;
+  flex: 0.6;
 }
 .temp-converted > p {
   text-align: center;
@@ -155,6 +155,27 @@ p.temp-meter span {
 .weather-card > img {
   margin: auto;
 }
+
+@media only screen and (max-width: 768px) {
+  .weather-statistics {
+    flex-direction: column;
+  }
+  .forecast,
+  .statistics {
+    width: 100%;
+  }
+  .weather-statistics,
+  .temp-converted {
+    height: auto;
+  }
+  .weekly-forecast {
+    height: 420px;
+  }
+  /* button#button-addon2 {
+    display: none;
+  } */
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

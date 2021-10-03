@@ -30,23 +30,45 @@ const App = ({
   } = weatherData;
   const [city, setcity] = useState("");
   const [searchBy, setsearchBy] = useState("city Name");
+  const [zipCodeParameter, setzipCodeParameter] = useState({
+    cityCode: "",
+    countryCode: "",
+  });
+
+  // ============================================================================
+  //                                      Search function
+  //=============================================================================
+
   const searchInputHandler = (e) => {
     e.preventDefault();
-    setcity(e.target.value);
-    // getWeaklyForecast(e.target.value);
     if (searchBy === "city Name") {
-      getWeatherData(e.target.value);
+      setcity(e.target.value);
+      fetchData();
     } else if (searchBy === "city ID") {
-      getWeatherDataByZip(city);
+      setzipCodeParameter({
+        ...zipCodeParameter,
+        [e.target.name]: e.target.value,
+      });
+      fetchData();
     }
   };
 
-  console.log("weather data  ", weatherData);
-  // if (isLoading) return <p>Loading...</p>;
+  // ============================================================================
+  //                                      FetchDat function
+  //=============================================================================
+
   const fetchData = () => {
-    getWeaklyForecast(city);
-    // getWeatherData(city);
+    if (searchBy === "city Name") {
+      getWeatherData(city);
+    } else if (searchBy === "city ID") {
+      getWeatherDataByZip(zipCodeParameter.cityCode,zipCodeParameter.countryCode);
+    }
   };
+
+  // ============================================================================
+  //                                      onClick search function
+  //=============================================================================
+
   const selectHandler = (e) => {
     e.preventDefault();
     setsearchBy(e.target.value);
@@ -101,8 +123,8 @@ const App = ({
             <p>Temperature Converter</p>
 
             <p className="temp-meter">
-              <span> Farhenhite: {main.temp}</span>
-              <span> Celcius: {toCelcius(main.temp)}</span>
+              <span> Farhenhite: {main.temp}&deg; F</span>
+              <span> Celcius:<br></br> {toCelcius(main.temp)}&deg; C</span>
             </p>
           </div>
         </div>
@@ -123,7 +145,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   getWeatherData: (city) => dispatch(getCurrentWeatherData(city)),
   getWeaklyForecast: (city) => dispatch(getForeCastData(city)),
-  getWeatherDataByZip: (zip) => dispatch(getCurrentWeatherDatafromZipCode(zip)),
+  getWeatherDataByZip: (cityCod, countryCode) =>
+    dispatch(getCurrentWeatherDatafromZipCode(cityCod, countryCode)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

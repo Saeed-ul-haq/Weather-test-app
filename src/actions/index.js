@@ -45,28 +45,25 @@ export const getForeCastData =
     }
   };
 
-export const getCurrentWeatherData =
-  (city) =>
-  async (dispatch) => {
-    try {
-      await Axios.get(
-        `http://api.openweathermap.org/data/2.5/weather?q=${city},&appid=${API_KEY}`
-      )
-        .then((response) => {
-          return dispatch(saveWeatherData(response.data));
-        })
-        .catch((error) => {
-          console.log("something went wrng", error);
-        });
-    } catch (error) {}
-  };
+export const getCurrentWeatherData = (city) => async (dispatch) => {
+  try {
+    await Axios.get(
+      `http://api.openweathermap.org/data/2.5/weather?q=${city},&appid=${API_KEY}`
+    )
+      .then((response) => {
+        return dispatch(saveWeatherData(response.data));
+      })
+      .catch((error) => {
+        console.log("something went wrng", error);
+      });
+  } catch (error) {}
+};
 
-  export const getCurrentWeatherDatafromZipCode =
-  (zip,country_code) =>
-  async (dispatch) => {
+export const getCurrentWeatherDatafromZipCode =
+  (cityCod, countryCode) => async (dispatch) => {
     try {
       await Axios.get(
-        `http://api.openweathermap.org/data/2.5/weather?zip=${zip},${country_code}&appid=${API_KEY}`
+        `http://api.openweathermap.org/data/2.5/weather?zip=${cityCod},${countryCode}&appid=${API_KEY}`
       )
         .then((response) => {
           return dispatch(saveWeatherData(response.data));
